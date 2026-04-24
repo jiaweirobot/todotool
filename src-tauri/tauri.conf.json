@@ -50,7 +50,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDREMDNDMEZDRjkxMzVCRDYKUldUV1d4UDUvTUFEVFF2Zi9kdXdLMWtzT0t2Vk9hSm1YOHViUEdjZHlITnd1dkk4Mi9kK0FtdXMK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDU5QTRCMzc1RjA3RDM3RTEKUldUaE4zM3dkYk9rV1VkT2h3Vkhwdk5OV1ltcFRWd1FsRVRzTVc3QmxsN2dXZXpNSk1ieGVYQXMK",
       "endpoints": [
         "https://your-update-server.example.com/todotool/{{target}}/{{arch}}/{{current_version}}"
       ]
