@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-ui: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-ui);
+  background: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  height: 100vh;
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-gradient);
+  overflow: hidden;
+  transition: background 0.35s ease;
+}
+
+@media (max-width: 520px) {
+  #root { max-width: 100%; }
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+::selection { background: var(--accent-glow); color: var(--text-secondary); }
+
+/* Ant Design overrides */
+.ant-modal .ant-modal-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  border-radius: 16px !important;
+}
+.ant-modal .ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border-light) !important;
+}
+.ant-modal .ant-modal-title {
+  color: var(--text-primary) !important;
+  font-family: var(--font-ui) !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.ant-modal .ant-modal-close { color: var(--text-muted) !important; }
+.ant-modal .ant-modal-close:hover { color: var(--text-primary) !important; }
+.ant-modal .ant-modal-footer .ant-btn-primary {
+  background: var(--deploy-bg) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+.ant-modal .ant-modal-footer .ant-btn-default {
+  background: transparent !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-muted) !important;
+  border-radius: 10px !important;
+}
+.ant-form-item-label > label {
+  color: var(--text-muted) !important;
+  font-family: var(--font-ui) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.ant-popover .ant-popover-inner {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(24px) saturate(1.4) !important;
+  border-radius: 12px !important;
+}
+.ant-popconfirm .ant-popconfirm-title { color: var(--text-primary) !important; }
+.ant-popconfirm .ant-popconfirm-description { color: var(--text-muted) !important; }
+.ant-picker-dropdown .ant-picker-panel-container {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 12px !important;
+}
+.ant-picker-dropdown .ant-picker-header { color: var(--text-secondary) !important; }
+.ant-picker-dropdown .ant-picker-content th { color: var(--text-muted) !important; }
+.ant-picker-dropdown .ant-picker-cell .ant-picker-cell-inner { color: var(--text-primary) !important; }
+.ant-picker-dropdown .ant-picker-cell-selected .ant-picker-cell-inner {
+  background: var(--accent) !important; color: #fff !important; border-radius: 8px !important;
+}
+.ant-picker-dropdown .ant-picker-cell:hover .ant-picker-cell-inner {
+  background: var(--accent-glow) !important; border-radius: 8px !important;
+}
+.ant-message .ant-message-notice-content {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  backdrop-filter: blur(24px) !important;
+  border-radius: 12px !important;
+}
+.ant-slider .ant-slider-track { background: var(--accent) !important; }
+.ant-slider .ant-slider-handle::after { border-color: var(--accent) !important; box-shadow: 0 0 0 2px var(--accent-glow) !important; }

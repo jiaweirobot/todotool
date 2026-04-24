@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "TodoTool",
+  "version": "1.0.0",
+  "identifier": "com.todotool.desktop",
+  "build": {
+    "frontendDist": "../dist-web",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npx vite --config vite.config.ts",
+    "beforeBuildCommand": "npx vite build --config vite.config.ts"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "TodoTool",
+        "width": 420,
+        "height": 700,
+        "minWidth": 360,
+        "minHeight": 500,
+        "resizable": true,
+        "decorations": false,
+        "transparent": true,
+        "alwaysOnTop": false
+      }
+    ],
+    "security": {
+      "csp": null
+    },
+    "trayIcon": {
+      "iconPath": "icons/icon.ico",
+      "iconAsTemplate": false,
+      "tooltip": "TodoTool"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis", "msi", "deb", "appimage", "rpm"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installMode": "currentUser"
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDREMDNDMEZDRjkxMzVCRDYKUldUV1d4UDUvTUFEVFF2Zi9kdXdLMWtzT0t2Vk9hSm1YOHViUEdjZHlITnd1dkk4Mi9kK0FtdXMK",
+      "endpoints": [
+        "https://your-update-server.example.com/todotool/{{target}}/{{arch}}/{{current_version}}"
+      ]
+    }
+  }
+}

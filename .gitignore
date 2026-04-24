@@ -1,0 +1,11 @@
+node_modules/
+dist-web/
+out/
+*.db
+.claude/
+
+# Rust build
+src-tauri/target/
+
+# Android generated
+src-tauri/gen/android/

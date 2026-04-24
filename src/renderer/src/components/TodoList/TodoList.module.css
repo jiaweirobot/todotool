@@ -1,0 +1,188 @@
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 12px 12px;
+}
+
+.center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  padding: 40px 20px;
+}
+
+.emptyIcon {
+  font-size: 36px;
+  opacity: 0.25;
+}
+
+.emptyText {
+  color: var(--text-placeholder);
+  font-size: 13px;
+  font-family: var(--font-ui);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  margin-bottom: 2px;
+  border-radius: 10px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  gap: 10px;
+  cursor: default;
+}
+
+.item:hover {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+}
+
+.itemCompleted {
+  opacity: var(--completed-opacity);
+}
+
+.itemCompleted:hover {
+  opacity: 0.55;
+}
+
+.accentBar {
+  width: 3px;
+  min-height: 28px;
+  align-self: stretch;
+  border-radius: 3px;
+  background: var(--accent, #a855f7);
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.item:hover .accentBar {
+  box-shadow: 0 0 8px var(--accent);
+}
+
+.checkbox {
+  flex-shrink: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+}
+
+.checkboxEmpty {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-color);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.checkboxEmpty:hover {
+  border-color: var(--check-color);
+  background: var(--accent-glow);
+  transform: scale(1.1);
+}
+
+.checkboxChecked {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--check-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 8px var(--check-glow);
+  animation: checkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkPop {
+  0% { transform: scale(0.8); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+.itemContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.itemTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.5;
+  transition: all 0.2s;
+  letter-spacing: -0.1px;
+}
+
+.titleCompleted {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.itemMeta {
+  display: flex;
+  gap: 12px;
+  margin-top: 3px;
+  font-size: 12px;
+  font-family: var(--font-ui);
+}
+
+.urgencyBadge {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.dateBadge {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+  font-weight: 500;
+  opacity: 0.65;
+}
+
+.overdue {
+  color: var(--urgency-high) !important;
+  font-weight: 600;
+}
+
+.completedBadge {
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.itemActions {
+  display: flex;
+  gap: 0;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.item:hover .itemActions {
+  opacity: 1;
+}
+
+.actionBtn {
+  color: var(--text-muted) !important;
+  font-size: 13px !important;
+  border-radius: 8px !important;
+  transition: all 0.15s !important;
+}
+
+.actionBtn:hover {
+  color: var(--text-secondary) !important;
+  background: var(--accent-glow) !important;
+}

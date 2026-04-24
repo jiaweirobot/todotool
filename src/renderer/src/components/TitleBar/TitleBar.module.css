@@ -1,0 +1,220 @@
+.titleBar {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  background: var(--bg-titlebar);
+  backdrop-filter: blur(24px) saturate(1.4);
+  border-bottom: 1px solid var(--border-light);
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-app-region: drag;
+}
+
+.titleText {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 80px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-title-bar);
+  font-family: var(--font-ui);
+  letter-spacing: -0.3px;
+  padding-left: 6px;
+}
+
+/* Center add button */
+.centerActions {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-app-region: no-drag;
+}
+
+.addBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 14px;
+  border: none;
+  border-radius: 20px;
+  background: var(--deploy-bg);
+  color: var(--deploy-text);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  white-space: nowrap;
+}
+
+.addBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.addBtn:active {
+  transform: scale(0.97);
+}
+
+/* Right controls */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  -webkit-app-region: no-drag;
+}
+
+.controlBtn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.15s;
+}
+
+.controlBtn:hover {
+  background: var(--accent-glow);
+  color: var(--text-primary);
+}
+
+.pinActive {
+  color: var(--pin-active) !important;
+  transform: rotate(-45deg);
+}
+
+.closeBtn:hover {
+  background: rgba(239, 68, 68, 0.1) !important;
+  color: #ef4444 !important;
+}
+
+/* Settings panel */
+.settingsPanel {
+  width: 220px;
+}
+
+.settingsSection {
+  padding: 8px 0;
+}
+
+.settingsSection:not(:last-child) {
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.settingsLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.themeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.themeBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: var(--bg-input);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.themeBtn:hover {
+  border-color: var(--border-color);
+  transform: translateY(-1px);
+}
+
+.themeBtnActive {
+  border-color: var(--accent) !important;
+  background: var(--accent-glow) !important;
+}
+
+.themeEmoji {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.themeName {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+}
+
+.themeBtnActive .themeName {
+  color: var(--accent);
+}
+
+.versionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.versionText {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.updateBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.updateBtn:hover {
+  background: var(--accent-glow);
+  border-color: var(--accent);
+}
+
+.updateBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.titleBarMobile {
+  -webkit-app-region: unset;
+  padding: 0 12px;
+  height: 48px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .closeBtn:hover {
+    background: rgba(239, 68, 68, 0.15) !important;
+  }
+}
