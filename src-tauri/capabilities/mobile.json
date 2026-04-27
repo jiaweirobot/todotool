@@ -1,9 +1,0 @@
-{
-  "$schema": "../gen/schemas/mobile-schema.json",
-  "identifier": "mobile-default",
-  "description": "enables the default permissions for mobile",
-  "platforms": ["iOS", "android"],
-  "permissions": [
-    "core:default"
-  ]
-}

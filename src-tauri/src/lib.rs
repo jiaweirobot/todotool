@@ -94,6 +94,31 @@ fn start_dragging(app: AppHandle) -> Result<(), String> {
 }
 
 #[cfg(desktop)]
+#[tauri::command]
+async fn check_update(app: AppHandle) -> Result<Option<String>, String> {
+    use tauri_plugin_updater::UpdaterExt;
+    let updater = app.updater().map_err(|e| e.to_string())?;
+    match updater.check().await {
+        Ok(Some(update)) => {
+            let version = update.version.clone();
+            info!("Update found: {}", version);
+            if let Err(e) = update.download_and_install(|_, _| {}, || {}).await {
+                return Err(format!("Download failed: {}", e));
+            }
+            Ok(Some(version))
+        }
+        Ok(None) => Ok(None),
+        Err(e) => Err(e.to_string()),
+    }
+}
+
+#[cfg(desktop)]
+#[tauri::command]
+fn restart_app(app: AppHandle) -> Result<(), String> {
+    app.restart();
+}
+
+#[cfg(desktop)]
 fn setup_tray(app: &AppHandle) -> Result<(), Box<dyn std::error::Error>> {
     let show = MenuItemBuilder::with_id("show", "显示/隐藏").build(app)?;
     let quit = MenuItemBuilder::with_id("quit", "退出").build(app)?;
@@ -188,6 +213,8 @@ pub fn run() {
         minimize_window,
         close_window,
         start_dragging,
+        check_update,
+        restart_app,
     ]);
 
     #[cfg(mobile)]

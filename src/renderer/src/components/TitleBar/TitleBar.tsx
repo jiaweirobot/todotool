@@ -64,13 +64,11 @@ export function TitleBar({ onAdd }: TitleBarProps): JSX.Element {
     if (!isDesktop) return
     setChecking(true)
     try {
-      const { check } = await import('@tauri-apps/plugin-updater')
-      const update = await check()
-      if (update) {
-        message.success(`发现新版本 ${update.version}，准备下载...`)
-        await update.downloadAndInstall()
-        const { invoke } = await import('@tauri-apps/api/core')
-        await invoke('plugin:process|restart')
+      const { invoke } = await import('@tauri-apps/api/core')
+      const version = await invoke<string | null>('check_update')
+      if (version) {
+        message.success(`已更新到 ${version}，正在重启...`)
+        await invoke('restart_app')
       } else {
         message.info('当前已是最新版本')
       }
