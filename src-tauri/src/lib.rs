@@ -93,7 +93,7 @@ fn start_dragging(app: AppHandle) -> Result<(), String> {
     Ok(())
 }
 
-#[cfg(desktop)]
+#[cfg(feature = "updater")]
 #[tauri::command]
 async fn check_update(app: AppHandle) -> Result<Option<String>, String> {
     use tauri_plugin_updater::UpdaterExt;
@@ -112,7 +112,7 @@ async fn check_update(app: AppHandle) -> Result<Option<String>, String> {
     }
 }
 
-#[cfg(desktop)]
+#[cfg(feature = "updater")]
 #[tauri::command]
 fn restart_app(app: AppHandle) -> Result<(), String> {
     app.restart();
@@ -182,8 +182,11 @@ pub fn run() {
             {
                 setup_tray(app.handle())?;
 
-                app.handle().plugin(tauri_plugin_updater::Builder::new().build())?;
-                app.handle().plugin(tauri_plugin_process::init())?;
+                #[cfg(feature = "updater")]
+                {
+                    app.handle().plugin(tauri_plugin_updater::Builder::new().build())?;
+                    app.handle().plugin(tauri_plugin_process::init())?;
+                }
 
                 let window = app.get_webview_window("main").unwrap();
                 let window_clone = window.clone();
@@ -199,7 +202,7 @@ pub fn run() {
             Ok(())
         });
 
-    #[cfg(desktop)]
+    #[cfg(all(desktop, feature = "updater"))]
     let builder = builder.invoke_handler(tauri::generate_handler![
         get_all_todos,
         create_todo,
@@ -215,6 +218,22 @@ pub fn run() {
         start_dragging,
         check_update,
         restart_app,
+    ]);
+
+    #[cfg(all(desktop, not(feature = "updater")))]
+    let builder = builder.invoke_handler(tauri::generate_handler![
+        get_all_todos,
+        create_todo,
+        update_todo,
+        delete_todo,
+        toggle_todo,
+        get_setting,
+        set_setting,
+        set_window_opacity,
+        set_always_on_top,
+        minimize_window,
+        close_window,
+        start_dragging,
     ]);
 
     #[cfg(mobile)]
