@@ -5,7 +5,7 @@ import { useTheme, THEMES } from '../../hooks/useTheme'
 import type { ThemeId } from '../../hooks/useTheme'
 import styles from './TitleBar.module.css'
 
-const APP_VERSION = '1.0.0'
+const APP_VERSION = '1.1.0'
 
 const isTauri = '__TAURI_INTERNALS__' in window
 const isMobile = /Android|iPhone|iPad/i.test(navigator.userAgent)
