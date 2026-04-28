@@ -24,6 +24,7 @@ export interface UpdateTodoInput {
   urgency?: number
   dueDate?: string | null
   completed?: boolean
+  completedAt?: string | null
   sortOrder?: number
 }
 
@@ -31,6 +32,7 @@ export interface TodoFilter {
   search?: string
   urgency?: number
   status?: 'all' | 'active' | 'completed'
+  completedDate?: string
 }
 
 export enum UrgencyLevel {

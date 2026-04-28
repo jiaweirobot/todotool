@@ -55,26 +55,60 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }: TodoItemProps): J
 
   return (
     <div
-      className={`${styles.item} ${completed ? styles.itemCompleted : ''}`}
+      className={`${styles.card} ${completed ? styles.cardCompleted : ''}`}
       style={{ '--accent': urg.color } as React.CSSProperties}
     >
-      <div className={styles.accentBar} />
-      <div className={styles.checkbox} onClick={() => onToggle(todo.id)}>
-        {completed ? (
-          <div className={styles.checkboxChecked}>
-            <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-              <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+      <div className={styles.cardAccent} />
+      <div className={styles.cardBody}>
+        <div className={styles.cardHeader}>
+          <div className={styles.checkbox} onClick={() => onToggle(todo.id)}>
+            {completed ? (
+              <div className={styles.checkboxChecked}>
+                <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                  <path d="M1 4L3.5 6.5L9 1" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            ) : (
+              <div className={styles.checkboxEmpty} />
+            )}
           </div>
-        ) : (
-          <div className={styles.checkboxEmpty} />
-        )}
-      </div>
-      <div className={styles.itemContent}>
-        <div className={`${styles.itemTitle} ${completed ? styles.titleCompleted : ''}`}>
-          {todo.title}
+          <div className={`${styles.cardTitle} ${completed ? styles.titleCompleted : ''}`}>
+            {todo.title}
+          </div>
+          <div className={styles.cardActions}>
+            {!completed && (
+              <Button
+                type="text"
+                size="small"
+                icon={<EditOutlined />}
+                onClick={() => onEdit(todo)}
+                className={styles.actionBtn}
+              />
+            )}
+            <Popconfirm
+              title="删除任务？"
+              description="此操作无法撤销"
+              onConfirm={() => onDelete(todo.id)}
+              okText="删除"
+              cancelText="取消"
+              okButtonProps={{ danger: true }}
+            >
+              <Button
+                type="text"
+                size="small"
+                icon={<DeleteOutlined />}
+                className={styles.actionBtn}
+                danger
+              />
+            </Popconfirm>
+          </div>
         </div>
-        <div className={styles.itemMeta}>
+
+        {todo.description && (
+          <div className={styles.cardDesc}>{todo.description}</div>
+        )}
+
+        <div className={styles.cardFooter}>
           <span className={styles.urgencyBadge} style={{ color: urg.color }}>
             {urg.icon}
             <span style={{ marginLeft: 3 }}>{urg.label}</span>
@@ -86,33 +120,6 @@ export function TodoItem({ todo, onToggle, onEdit, onDelete }: TodoItemProps): J
             </span>
           )}
         </div>
-      </div>
-      <div className={styles.itemActions}>
-        {!completed && (
-          <Button
-            type="text"
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => onEdit(todo)}
-            className={styles.actionBtn}
-          />
-        )}
-        <Popconfirm
-          title="删除任务？"
-          description="此操作无法撤销"
-          onConfirm={() => onDelete(todo.id)}
-          okText="删除"
-          cancelText="取消"
-          okButtonProps={{ danger: true }}
-        >
-          <Button
-            type="text"
-            size="small"
-            icon={<DeleteOutlined />}
-            className={styles.actionBtn}
-            danger
-          />
-        </Popconfirm>
       </div>
     </div>
   )

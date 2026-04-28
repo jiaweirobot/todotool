@@ -48,15 +48,17 @@ pub struct UpdateTodoInput {
     pub urgency: Option<i32>,
     pub due_date: Option<String>,
     pub completed: Option<bool>,
+    pub completed_at: Option<String>,
     pub sort_order: Option<i32>,
 }
 
 #[derive(Debug, Deserialize, Default)]
-#[serde(default)]
+#[serde(rename_all = "camelCase", default)]
 pub struct TodoFilter {
     pub search: Option<String>,
     pub urgency: Option<i32>,
     pub status: Option<String>,
+    pub completed_date: Option<String>,
 }
 
 pub struct Database {
@@ -122,6 +124,13 @@ impl Database {
                 "active" => sql.push_str(" AND completed = 0"),
                 "completed" => sql.push_str(" AND completed = 1"),
                 _ => {}
+            }
+        }
+        if let Some(ref completed_date) = filter.completed_date {
+            if !completed_date.is_empty() {
+                let idx = param_values.len() + 1;
+                sql.push_str(&format!(" AND date(completed_at) = ?{}", idx));
+                param_values.push(Box::new(completed_date.clone()));
             }
         }
 
@@ -208,6 +217,11 @@ impl Database {
         if let Some(completed) = input.completed {
             sets.push(format!("completed = ?{}", idx));
             param_values.push(Box::new(completed as i32));
+            idx += 1;
+        }
+        if let Some(ref completed_at) = input.completed_at {
+            sets.push(format!("completed_at = ?{}", idx));
+            param_values.push(Box::new(completed_at.clone()));
             idx += 1;
         }
         if let Some(sort_order) = input.sort_order {

@@ -31,11 +31,13 @@ export function TodoForm({ open, editingTodo, onClose, onCreate, onUpdate }: Tod
       form.setFieldsValue({
         title: editingTodo.title,
         description: editingTodo.description,
-        dueDate: editingTodo.dueDate ? dayjs(editingTodo.dueDate) : null
+        dueDate: editingTodo.dueDate ? dayjs(editingTodo.dueDate) : null,
+        completedAt: editingTodo.completedAt ? dayjs(editingTodo.completedAt) : null,
       })
       setUrgency(editingTodo.urgency)
     } else if (open) {
       form.resetFields()
+      form.setFieldsValue({ dueDate: dayjs() })
       setUrgency(UrgencyLevel.Medium)
     }
   }, [open, editingTodo, form])
@@ -45,12 +47,16 @@ export function TodoForm({ open, editingTodo, onClose, onCreate, onUpdate }: Tod
       const values = await form.validateFields()
       setSubmitting(true)
       if (isEdit && editingTodo) {
-        await onUpdate(editingTodo.id, {
+        const updates: UpdateTodoInput = {
           title: values.title.trim(),
           description: values.description?.trim() || '',
           urgency,
-          dueDate: values.dueDate ? values.dueDate.toISOString() : null
-        })
+          dueDate: values.dueDate ? values.dueDate.toISOString() : null,
+        }
+        if (editingTodo.completed) {
+          updates.completedAt = values.completedAt ? values.completedAt.toISOString() : null
+        }
+        await onUpdate(editingTodo.id, updates)
       } else {
         await onCreate({
           title: values.title.trim(),
@@ -127,6 +133,18 @@ export function TodoForm({ open, editingTodo, onClose, onCreate, onUpdate }: Tod
             className={styles.datePicker}
           />
         </Form.Item>
+
+        {isEdit && editingTodo?.completed && (
+          <Form.Item name="completedAt" label="完成时间">
+            <DatePicker
+              showTime
+              placeholder="选择完成时间"
+              style={{ width: '100%' }}
+              format="YYYY/MM/DD HH:mm"
+              className={styles.datePicker}
+            />
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   )

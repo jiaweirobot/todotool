@@ -18,13 +18,6 @@ async function api<T>(path: string, options?: RequestInit): Promise<T> {
   return res.json()
 }
 
-function isCompletedOverOneDay(todo: Todo): boolean {
-  if (!todo.completed || !todo.completedAt) return false
-  const completedTime = new Date(todo.completedAt).getTime()
-  const now = Date.now()
-  return now - completedTime > 24 * 60 * 60 * 1000
-}
-
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([])
   const [loading, setLoading] = useState(true)
@@ -38,16 +31,18 @@ export function useTodos() {
           search: filter.search || null,
           urgency: filter.urgency ?? null,
           status: filter.status || null,
+          completedDate: filter.completedDate || null,
         })
       } else {
         const params = new URLSearchParams()
         if (filter.search) params.set('search', filter.search)
         if (filter.urgency !== undefined) params.set('urgency', String(filter.urgency))
         if (filter.status) params.set('status', filter.status)
+        if (filter.completedDate) params.set('completedDate', filter.completedDate)
         const qs = params.toString()
         data = await api<Todo[]>(`/todos${qs ? '?' + qs : ''}`)
       }
-      setTodos(data.filter(t => !isCompletedOverOneDay(t)))
+      setTodos(data)
     } catch (err) {
       console.error('Failed to fetch todos:', err)
     } finally {

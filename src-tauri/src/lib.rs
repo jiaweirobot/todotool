@@ -12,9 +12,9 @@ use tauri::{
 };
 
 #[tauri::command]
-fn get_all_todos(db: State<Database>, search: Option<String>, urgency: Option<i32>, status: Option<String>) -> Result<Vec<Todo>, String> {
-    info!("get_all_todos: search={:?}, urgency={:?}, status={:?}", search, urgency, status);
-    db.get_all_todos(TodoFilter { search, urgency, status })
+fn get_all_todos(db: State<Database>, search: Option<String>, urgency: Option<i32>, status: Option<String>, completed_date: Option<String>) -> Result<Vec<Todo>, String> {
+    info!("get_all_todos: search={:?}, urgency={:?}, status={:?}, completed_date={:?}", search, urgency, status, completed_date);
+    db.get_all_todos(TodoFilter { search, urgency, status, completed_date })
 }
 
 #[tauri::command]
